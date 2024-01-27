@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders List</title>
+</head>
+<body>
+    <h1>Orders List</h1>
+    <table>
+        <tr>
+            <th>Client Name</th>
+            <th>Order Name</th>
+            <th>Order Cost</th>
+        </tr>
+        {% for client_name, orders in orders.items() %}
+            {% for order in orders %}
+                <tr>
+                    <td>{{ client_name }}</td>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.cost }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+</body>
+</html>
