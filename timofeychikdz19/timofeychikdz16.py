@@ -10,6 +10,7 @@ class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
 
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cost = db.Column(db.Integer)
@@ -25,23 +26,26 @@ def create_data():
         {'name': 'Client3'},
         {'name': 'Client4'}
     ]
-    orders = [
-        {'cost': 100, 'name': 'Order1', 'client_id': 1},
-        {'cost': 200, 'name': 'Order2', 'client_id': 1},
-        {'cost': 300, 'name': 'Order3', 'client_id': 2},
-        {'cost': 400, 'name': 'Order4', 'client_id': 2},
-        {'cost': 500, 'name': 'Order5', 'client_id': 2},
-        {'cost': 600, 'name': 'Order6', 'client_id': 3},
-        {'cost': 700, 'name': 'Order7', 'client_id': 4},
-        {'cost': 800, 'name': 'Order8', 'client_id': 4},
-        {'cost': 900, 'name': 'Order9', 'client_id': 4},
-        {'cost': 1000, 'name': 'Order10', 'client_id': 4}
-    ]
-    
+
     for c in clients:
-        client = Client(name=c['name'])
-        db.session.add(client)
+        client = Client.query.filter_by(name=c['name']).first()
+        if not client:
+            client = Client(name=c['name'])
+            db.session.add(client)
     db.session.commit()
+
+    orders = [
+        {'cost': 100, 'name': 'Order1', 'client_id': 5},
+        {'cost': 200, 'name': 'Order2', 'client_id': 5},
+        {'cost': 300, 'name': 'Order3', 'client_id': 6},
+        {'cost': 400, 'name': 'Order4', 'client_id': 6},
+        {'cost': 500, 'name': 'Order5', 'client_id': 6},
+        {'cost': 600, 'name': 'Order6', 'client_id': 7},
+        {'cost': 700, 'name': 'Order7', 'client_id': 8},
+        {'cost': 800, 'name': 'Order8', 'client_id': 8},
+        {'cost': 900, 'name': 'Order9', 'client_id': 8},
+        {'cost': 1000, 'name': 'Order10', 'client_id': 8}
+    ]
 
     for o in orders:
         order = Order(cost=o['cost'], name=o['name'], client_id=o['client_id'])
